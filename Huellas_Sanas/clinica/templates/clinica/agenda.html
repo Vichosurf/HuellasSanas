@@ -1,0 +1,31 @@
+{% load static %}
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agenda | Huellas Sanas</title><link rel="stylesheet" href="{% static 'clinica/estilos.css' %}">
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="/" aria-label="Huellas Sanas inicio"><span class="brand-mark">HS</span><span><b>Huellas Sanas</b><small>Centro veterinario</small></span></a><a class="admin-link" href="{% url 'admin:index' %}">Administración ↗</a></header>
+  <main class="shell">
+    <section class="intro"><div><p class="eyebrow">RECEPCIÓN · AGENDA MÉDICA</p><h1>Una agenda clara,<br><span>para cuidar mejor.</span></h1><p class="lede">Registra pacientes y organiza las consultas del día en un solo lugar.</p></div><div class="paw-art" aria-hidden="true">🐾</div></section>
+    {% if messages %}{% for message in messages %}<div class="notice">{{ message }}</div>{% endfor %}{% endif %}
+    <section class="layout">
+      <article class="card form-card"><div class="section-heading"><div><p class="eyebrow">NUEVO REGISTRO</p><h2>Paciente y cita</h2></div><span class="step">01 / 01</span></div>
+        <form method="post" novalidate>{% csrf_token %}
+          {% if form.non_field_errors %}<div class="errors">{{ form.non_field_errors }}</div>{% endif %}
+          <p class="form-label">Datos de la mascota</p><div class="fields two">{% for field in form %}{% if field.name == 'nombre' or field.name == 'especie' or field.name == 'raza' or field.name == 'nombre_dueno' %}<div class="field"><label for="{{ field.id_for_label }}">{{ field.label }}</label>{{ field }}{% for error in field.errors %}<small class="error">{{ error }}</small>{% endfor %}</div>{% endif %}{% endfor %}</div>
+          <p class="form-label visit-label">Datos de la consulta</p><div class="fields two">{% for field in form %}{% if field.name == 'fecha' or field.name == 'hora' or field.name == 'motivo_consulta' %}<div class="field {% if field.name == 'motivo_consulta' %}wide{% endif %}"><label for="{{ field.id_for_label }}">{{ field.label }}</label>{{ field }}{% for error in field.errors %}<small class="error">{{ error }}</small>{% endfor %}</div>{% endif %}{% endfor %}</div>
+          <button class="primary" type="submit">Guardar paciente y cita <span>→</span></button>
+        </form>
+      </article>
+      <article class="card agenda-card"><div class="section-heading agenda-heading"><div><p class="eyebrow">CONTROL DIARIO</p><h2>Agenda del día</h2></div><span class="count">{{ pendientes }} <small>pendientes</small></span></div>
+        <form class="date-filter" method="get"><label for="fecha">Fecha de atención</label><input id="fecha" name="fecha" type="date" value="{{ fecha_seleccionada }}"><button type="submit" aria-label="Ver agenda">↗</button></form>
+        <div class="table-wrap"><table><thead><tr><th>HORA</th><th>PACIENTE</th><th>CONSULTA</th><th>ESTADO</th></tr></thead><tbody>
+          {% for cita in citas %}<tr><td class="time">{{ cita.hora|time:'H:i' }}</td><td><b>{{ cita.mascota.nombre }}</b><small>{{ cita.mascota.especie }}{% if cita.mascota.raza %} · {{ cita.mascota.raza }}{% endif %}<br>{{ cita.mascota.nombre_dueno }}</small></td><td>{{ cita.motivo_consulta }}</td><td><span class="status status-{{ cita.estado }}">{{ cita.get_estado_display }}</span></td></tr>
+          {% empty %}<tr><td colspan="4" class="empty"><span>◷</span><b>Sin citas registradas</b><small>Selecciona otra fecha o agrega el primer paciente.</small></td></tr>{% endfor %}
+        </tbody></table></div><p class="agenda-foot">Mostrando {{ citas|length }} cita{{ citas|length|pluralize:"s" }} · <a href="{% url 'admin:clinica_cita_changelist' %}">Gestionar citas</a></p>
+      </article>
+    </section><footer><span>© Huellas Sanas</span><span>Atención organizada, cuidado cercano.</span></footer>
+  </main>
+</body></html>

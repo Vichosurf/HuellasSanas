@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+.venv/
+venv/
+
+# Local Django data
+Huellas_Sanas/db.sqlite3
+
+# Local environment files
+.env
+.env.*
+!.env.example
