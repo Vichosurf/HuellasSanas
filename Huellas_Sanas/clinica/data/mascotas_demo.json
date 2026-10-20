@@ -1,0 +1,22 @@
+[
+  {"nombre": "Luna", "especie": "Perro", "raza": "Golden Retriever", "nombre_dueno": "Camila Rojas", "motivo_consulta": "Control anual", "estado": "pendiente", "dias_desde_hoy": -3, "hora": "09:00"},
+  {"nombre": "Michi", "especie": "Gato", "raza": "Doméstico de pelo corto", "nombre_dueno": "Diego Pérez", "motivo_consulta": "Vacunación triple felina", "estado": "atendida", "dias_desde_hoy": -2, "hora": "09:15"},
+  {"nombre": "Toby", "especie": "Perro", "raza": "Poodle", "nombre_dueno": "Valentina Soto", "motivo_consulta": "Picazón en la piel", "estado": "pendiente", "dias_desde_hoy": -1, "hora": "09:30"},
+  {"nombre": "Nala", "especie": "Gato", "raza": "Siamés", "nombre_dueno": "Francisca Díaz", "motivo_consulta": "Control de peso", "estado": "cancelada", "dias_desde_hoy": 0, "hora": "09:45"},
+  {"nombre": "Rocky", "especie": "Perro", "raza": "Labrador", "nombre_dueno": "Tomás Muñoz", "motivo_consulta": "Dolor en una pata", "estado": "pendiente", "dias_desde_hoy": 1, "hora": "10:00"},
+  {"nombre": "Mora", "especie": "Perro", "raza": "Mestiza", "nombre_dueno": "Javiera Silva", "motivo_consulta": "Examen preventivo", "estado": "pendiente", "dias_desde_hoy": 2, "hora": "10:15"},
+  {"nombre": "Simba", "especie": "Gato", "raza": "Naranja", "nombre_dueno": "Matías Torres", "motivo_consulta": "Refuerzo de vacuna", "estado": "atendida", "dias_desde_hoy": 3, "hora": "10:30"},
+  {"nombre": "Kira", "especie": "Perro", "raza": "Pastor alemán", "nombre_dueno": "Daniela Flores", "motivo_consulta": "Consulta digestiva", "estado": "pendiente", "dias_desde_hoy": -3, "hora": "10:45"},
+  {"nombre": "Coco", "especie": "Ave", "raza": "Cacatúa ninfa", "nombre_dueno": "Andrés Herrera", "motivo_consulta": "Revisión de plumaje", "estado": "pendiente", "dias_desde_hoy": -2, "hora": "11:00"},
+  {"nombre": "Doki", "especie": "Perro", "raza": "Beagle", "nombre_dueno": "Paula Castro", "motivo_consulta": "Limpieza dental", "estado": "cancelada", "dias_desde_hoy": -1, "hora": "11:15"},
+  {"nombre": "Pelusa", "especie": "Conejo", "raza": "Cabeza de león", "nombre_dueno": "Nicolás Vargas", "motivo_consulta": "Control de uñas", "estado": "pendiente", "dias_desde_hoy": 0, "hora": "11:30"},
+  {"nombre": "Max", "especie": "Perro", "raza": "Bulldog francés", "nombre_dueno": "Carolina Fuentes", "motivo_consulta": "Tos persistente", "estado": "pendiente", "dias_desde_hoy": 1, "hora": "11:45"},
+  {"nombre": "Lola", "especie": "Gato", "raza": "Mestiza", "nombre_dueno": "Sebastián Reyes", "motivo_consulta": "Esterilización: evaluación", "estado": "atendida", "dias_desde_hoy": 2, "hora": "12:00"},
+  {"nombre": "Bobby", "especie": "Perro", "raza": "Cocker spaniel", "nombre_dueno": "Antonia Espinoza", "motivo_consulta": "Otitis", "estado": "pendiente", "dias_desde_hoy": 3, "hora": "12:15"},
+  {"nombre": "Chispa", "especie": "Hámster", "raza": "Sirio", "nombre_dueno": "Felipe Navarro", "motivo_consulta": "Control general", "estado": "pendiente", "dias_desde_hoy": -3, "hora": "12:30"},
+  {"nombre": "Milo", "especie": "Gato", "raza": "British shorthair", "nombre_dueno": "Constanza Vidal", "motivo_consulta": "Pérdida de apetito", "estado": "cancelada", "dias_desde_hoy": -2, "hora": "12:45"},
+  {"nombre": "Canela", "especie": "Perro", "raza": "Dachshund", "nombre_dueno": "Ignacio Campos", "motivo_consulta": "Vacunación antirrábica", "estado": "pendiente", "dias_desde_hoy": -1, "hora": "13:00"},
+  {"nombre": "Pipa", "especie": "Perro", "raza": "Chihuahua", "nombre_dueno": "Belén Morales", "motivo_consulta": "Revisión postoperatoria", "estado": "atendida", "dias_desde_hoy": 0, "hora": "13:15"},
+  {"nombre": "Oreo", "especie": "Gato", "raza": "Bicolor", "nombre_dueno": "Gabriel Castillo", "motivo_consulta": "Lagrimeo en un ojo", "estado": "pendiente", "dias_desde_hoy": 1, "hora": "13:30"},
+  {"nombre": "Flor", "especie": "Cobaya", "raza": "Americana", "nombre_dueno": "Josefina León", "motivo_consulta": "Evaluación preventiva", "estado": "pendiente", "dias_desde_hoy": 2, "hora": "13:45"}
+]
