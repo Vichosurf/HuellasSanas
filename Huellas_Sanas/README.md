@@ -1,138 +1,173 @@
-# Huellas Sanas
+# Huellas Sanas 🐾
 
-Sistema web para centralizar el registro de pacientes veterinarios y la agenda de consultas de la clínica **Huellas Sanas**.
+### Registro de pacientes y agenda de consultas para un centro veterinario
 
-## Problema que resuelve
+> **Proyecto académico individual · Analista Programador · INACAP Osorno**  
+> **Desarrollador:** Vicente Vega Arroyo  
+> **Tecnologías:** Python · Django · Django ORM · SQLite · HTML/CSS (interfaz web) · JSON (datos de demostración)
 
-La recepción administraba las atenciones con una combinación de agendas de papel y mensajes de WhatsApp. Al crecer la cantidad de pacientes, esa información dispersa empezó a provocar problemas concretos:
+**Huellas Sanas** es una aplicación web que desarrollé para organizar tareas habituales de recepción en una clínica veterinaria: registrar mascotas y sus responsables, programar consultas y consultar la agenda de atención por fecha y estado. Complementé la interfaz de recepción con **Django Admin** para administrar mascotas y citas.
 
-- Dos pacientes podían quedar citados para la misma fecha y hora.
-- Una cita podía no llegar a la agenda que revisaba el equipo veterinario.
-- El motivo de consulta podía perderse entre mensajes.
-- Al llegar a la clínica, los dueños podían descubrir que su cita no estaba registrada.
-- Era difícil consultar rápidamente qué pacientes debían atenderse durante el día.
+**[Explorar el repositorio](https://github.com/Vichosurf/HuellasSanas)**
 
-Huellas Sanas guarda estos datos en una base centralizada. Recepción puede registrar la mascota junto con su primera cita y revisar la agenda por fecha. El sistema ordena las citas por hora y bloquea la duplicación de una fecha y hora. La administración puede consultar y modificar los registros desde Django Admin.
+---
 
-## Funcionalidades principales
+## 1. El problema
 
-- Formulario web para registrar una mascota y su cita: nombre, especie, raza, dueño, fecha, hora y motivo.
-- Agenda diaria que se puede consultar para otras fechas.
-- Visualización del paciente, dueño, motivo y estado de cada cita.
-- Estados disponibles: `pendiente`, `atendida` y `cancelada`.
-- Validación para evitar dos citas en el mismo bloque horario.
-- Gestión de mascotas y citas con operaciones CRUD en Django Admin.
-- Filtros administrativos por fecha y estado de la cita, además de búsqueda de pacientes y motivos.
-- Carga de pacientes ficticios desde un archivo JSON para demostrar el sistema.
-- Diseño adaptable a pantallas de escritorio y teléfonos.
+En una recepción veterinaria, los datos de una mascota, el motivo de consulta y la hora de atención deben estar coordinados. Cuando los registros se dispersan, aumenta la dificultad para consultar el calendario y evitar reservas superpuestas.
 
-## Tecnologías utilizadas
+Mi objetivo fue reunir **registro y agenda diaria en un mismo flujo**, con información visible para recepción y herramientas administrativas separadas.
 
-| Tecnología | Uso en el proyecto |
+## 2. La solución
+
+Construí una interfaz para ingresar los datos básicos de la mascota y programar su consulta. La agenda permite seleccionar una fecha, revisar las atenciones por hora y distinguir si una cita está **pendiente, atendida o cancelada**.
+
+En el módulo administrativo de Django puedo consultar y gestionar mascotas y citas, aplicar filtros y realizar operaciones de creación, consulta, actualización y eliminación de registros.
+
+**Alcance:** es un desarrollo académico que se ejecuta en un entorno local. Las capturas muestran **datos ficticios de demostración**; no representan pacientes ni atenciones reales de una clínica.
+
+## 3. Demostración visual
+
+### Portada y propuesta de la aplicación
+
+![Portada de Huellas Sanas, con el mensaje Una agenda clara, para cuidar mejor](docs/capturas/01_portada.png)
+
+La portada resume el propósito de la herramienta: registrar pacientes y organizar la jornada de atención.
+
+### Registro de pacientes y agenda diaria
+
+![Formulario para registrar mascota y cita junto a la agenda diaria](docs/capturas/02_registro_agenda.png)
+
+Esta vista integra, de un lado, el formulario con datos de mascota y consulta; del otro, la agenda de la fecha seleccionada con horario, paciente, motivo y estado.
+
+### Confirmación del registro
+
+![Mensaje de confirmación tras guardar una mascota y su cita](docs/capturas/03_registro_exitoso.png)
+
+El mensaje de confirmación permite reconocer el resultado de una operación de registro durante la demostración.
+
+### Administración de Django
+
+![Panel de Django Admin con citas, búsqueda, estados y filtros](docs/capturas/04_administracion_django.png)
+
+Uso **Django Admin** para mantener los registros, consultar listados y filtrar las citas por fecha o estado. Esta vista es administrativa y se diferencia de la pantalla de recepción.
+
+## 4. Funcionalidades
+
+| Área | Funcionalidad documentada |
 | --- | --- |
-| **Python** | Lenguaje de programación de las vistas, formularios, modelos y comandos de gestión. |
-| **Django 6.1** | Framework web: maneja las rutas, solicitudes, validación de formularios, plantillas, sesiones y administración. |
-| **Django ORM** | Define los modelos y consulta la base de datos usando objetos Python. |
-| **SQLite** | Base de datos local del ejercicio. Django la crea y actualiza al aplicar las migraciones. |
-| **HTML** | Estructura de la página de recepción y la agenda. |
-| **CSS** | Presentación visual y adaptación a distintos tamaños de pantalla. |
-| **JSON** | Archivo de datos ficticios que consume el comando `cargar_datos_demo`. |
-| **PowerShell** | Consola usada para ejecutar los comandos de Django en Windows. |
+| Registro | Alta de mascota y primera cita desde un formulario web. |
+| Mascotas | Nombre, especie, raza y nombre del responsable. |
+| Consultas | Fecha, hora, motivo y estado de atención. |
+| Agenda | Consulta diaria, selección de fecha y orden por horario. |
+| Seguimiento | Conteo de citas pendientes y estados **pendiente / atendida / cancelada**. |
+| Validación | Regla para impedir dos citas en la misma fecha y hora, descrita en la implementación. |
+| Administración | Operaciones CRUD de mascotas y citas con búsqueda y filtros en Django Admin. |
+| Demostración | Carga de registros ficticios a partir de un archivo JSON, evitando duplicados según el comando del proyecto. |
 
-La interfaz no requiere un framework JavaScript ni una base de datos externa para funcionar en este ejercicio.
+## 5. Arquitectura conceptual
 
-## Modelos de datos
-
-### Mascota
-
-Cada registro guarda el nombre de la mascota, especie, raza y nombre del dueño.
-
-### Cita
-
-Cada cita se relaciona con una mascota y guarda fecha, hora, motivo de consulta y estado. La base de datos impone que no se repita la combinación de fecha y hora.
-
-La relación es de **una mascota a muchas citas**: una mascota puede volver a la clínica y tener más de una consulta a lo largo del tiempo.
-
-## Recorrido de uso
-
-1. Recepción abre la agenda y registra al paciente y su primera consulta.
-2. Django valida los campos y comprueba que el horario esté libre.
-3. La información se guarda en SQLite mediante los modelos ORM.
-4. La cita queda visible en la agenda de su fecha.
-5. El director inicia sesión en Django Admin para revisar, buscar, editar o eliminar mascotas y citas, y cambiar el estado de una cita.
-
-## Tecnologías y estructura del proyecto
-
-- `config/settings.py`: aplicaciones, idioma español, zona horaria de Santiago y base de datos.
-- `config/urls.py`: rutas del proyecto y acceso al panel administrativo.
-- `clinica/models.py`: modelos `Mascota` y `Cita`.
-- `clinica/forms.py`: validación y guardado del registro de mascota y cita.
-- `clinica/views.py` y `clinica/urls.py`: lógica y rutas de la agenda.
-- `clinica/templates/clinica/agenda.html`: plantilla de recepción.
-- `clinica/static/clinica/estilos.css`: estilos responsive.
-- `clinica/admin.py`: configuración de los modelos en Django Admin.
-- `clinica/data/mascotas_demo.json`: pacientes y citas ficticias de demostración.
-- `clinica/management/commands/cargar_datos_demo.py`: comando que lee el JSON y crea los registros en la base.
-- `clinica/migrations/`: historial de cambios de esquema aplicado por Django.
-
-## Requisitos
-
-- Python instalado.
-- El entorno virtual del proyecto en `.venv` con Django instalado.
-- PowerShell en Windows, o una consola equivalente que permita ejecutar Python.
-
-## Preparar y ejecutar en Windows
-
-Abre PowerShell en la carpeta `Huellas_Sanas` y ejecuta:
-
-```powershell
-.\.venv\Scripts\python.exe manage.py migrate
-.\.venv\Scripts\python.exe manage.py cargar_datos_demo
-.\.venv\Scripts\python.exe manage.py runserver
+```mermaid
+flowchart TD
+    A[Interfaz de recepción] --> B[Aplicación Django]
+    C[Panel Django Admin] --> B
+    B --> D[Modelos y consultas con Django ORM]
+    D --> E[(Base de datos SQLite local)]
+    F[JSON de datos ficticios] --> G[Comando cargar_datos_demo]
+    G --> D
 ```
 
-El primer comando crea las tablas que necesita la aplicación. El segundo carga las mascotas ficticias. El tercero inicia el servidor local. Después abre:
+Separé dos experiencias de uso: la recepción, enfocada en registrar y visualizar el día, y la administración, orientada a gestionar los registros existentes. Para persistencia local utilicé **modelos relacionados mediante el ORM de Django** sobre **SQLite**.
 
-- Agenda de recepción: <http://127.0.0.1:8000/>
-- Django Admin: <http://127.0.0.1:8000/admin/>
+El diagrama resume componentes y flujo de datos a nivel conceptual; no pretende representar cada clase o módulo del código fuente.
 
-Para entrar en Django Admin, crea una cuenta administrativa una vez:
+## 6. Decisiones de desarrollo
+
+- **Django:** utilicé su estructura de aplicación y su panel de administración para gestionar datos sin duplicar herramientas administrativas.
+- **SQLite:** elegí una base de datos local apropiada para construir y probar el alcance académico del proyecto.
+- **Vista unificada:** dispuse el ingreso de datos junto a la agenda para facilitar la revisión inmediata de las citas.
+- **Estados visibles:** diferencié pendientes, atendidas y canceladas para reconocer la situación de cada consulta.
+- **Datos de ejemplo:** incorporé una carga desde JSON para repetir demostraciones con registros ficticios.
+- **Validación de horario:** documenté una regla para evitar dos citas en la misma fecha y hora; conviene acompañarla con una prueba reproducible.
+
+## 7. Cómo ejecutar el proyecto
+
+> **Requisitos:** Windows con PowerShell, Python y el entorno virtual `.venv` del proyecto ya preparado, con sus dependencias instaladas. Esta guía utiliza el script y las rutas proporcionadas en el proyecto; si se ejecuta en otro equipo, puede ser necesario recrear el entorno.
+
+### Iniciar el sistema
+
+Ubícate en la carpeta del repositorio que contiene `iniciar.ps1` y `manage.py` (en la estructura compartida, `Huellas_Sanas/`). Ejecuta:
+
+```powershell
+.\iniciar.ps1
+```
+
+El script está preparado para aplicar migraciones, cargar registros de demostración e iniciar Django. Si deseas utilizar otro puerto:
+
+```powershell
+.\iniciar.ps1 -Direccion 127.0.0.1:8001
+```
+
+**Direcciones locales por defecto:**
+
+- Recepción y agenda: `http://127.0.0.1:8000/`
+- Administración: `http://127.0.0.1:8000/admin/`
+
+### Crear el usuario administrativo
+
+El panel Django Admin requiere un superusuario local:
 
 ```powershell
 .\.venv\Scripts\python.exe manage.py createsuperuser
 ```
 
-Django pedirá el nombre de usuario y la contraseña; el proyecto no incluye credenciales predeterminadas.
+### Cargar datos ficticios
 
-### Si aparece `no such table: clinica_cita`
-
-La base SQLite todavía no tiene aplicadas las migraciones. Detén el servidor, ejecuta `migrate` con el comando de arriba y vuelve a iniciar `runserver`.
-
-## Agregar mascotas de demostración con JSON
-
-Edita `clinica/data/mascotas_demo.json`. Cada objeto describe una mascota y la cita que se creará para ella. Ejemplo:
-
-```json
-{
-  "nombre": "Nube",
-  "especie": "Perro",
-  "raza": "Mestizo",
-  "nombre_dueno": "Alex Rivera",
-  "motivo_consulta": "Control general",
-  "estado": "pendiente",
-  "dias_desde_hoy": 0,
-  "hora": "14:00"
-}
-```
-
-Agrega el objeto dentro de la lista JSON, separándolo del anterior con una coma. Usa un horario que esté libre en la fecha elegida y uno de los estados válidos (`pendiente`, `atendida` o `cancelada`). Luego carga los datos con:
+El archivo de ejemplo está en [`Huellas_Sanas/clinica/data/mascotas_demo.json`](Huellas_Sanas/clinica/data/mascotas_demo.json). Para cargarlo desde la carpeta con `manage.py`:
 
 ```powershell
 .\.venv\Scripts\python.exe manage.py cargar_datos_demo
 ```
 
-`dias_desde_hoy` es un desplazamiento respecto de la fecha en que se ejecuta el comando. Por ello, al cargar el mismo JSON otro día, la fecha calculada de las citas de demostración cambia. Para registrar pacientes reales, utiliza el formulario web o Django Admin. Para guardar una mascota sin cita todavía, usa **Mascotas → Añadir mascota** en Django Admin.
+Cada elemento del JSON define datos básicos de una mascota y de su primera cita. Para agregar ejemplos, se debe mantener la estructura del archivo, utilizar un horario libre y escoger uno de estos estados: `pendiente`, `atendida`, `cancelada`.
 
-## Alcance
+### Si faltan tablas en SQLite
 
-Este proyecto es una aplicación local de demostración para el ejercicio. Usa SQLite y no requiere conexión a servicios externos. El panel administrativo está protegido por el inicio de sesión de Django; el formulario público de recepción no requiere autenticación en esta versión.
+Si aparece `no such table: clinica_cita`, detén el servidor y aplica las migraciones:
+
+```powershell
+.\.venv\Scripts\python.exe manage.py migrate
+.\.venv\Scripts\python.exe manage.py cargar_datos_demo
+```
+
+Después vuelve a iniciar la aplicación.
+
+## 8. Evidencia y verificaciones
+
+| Caso | Qué se puede revisar | Estado de la evidencia |
+| --- | --- | --- |
+| V-01 | Mostrar formulario y agenda de la fecha elegida. | **Visible en captura**. |
+| V-02 | Guardar una mascota y una cita; mostrar confirmación. | **Mensaje visible en captura**. |
+| V-03 | Filtrar citas por fecha y estado en el administrador. | **Controles visibles en captura**. |
+| V-04 | Impedir dos citas con el mismo día y hora. | **Regla documentada; falta registrar una prueba**. |
+| V-05 | Ejecutar dos veces la carga JSON sin duplicar registros. | **Comportamiento descrito; falta registrar una prueba**. |
+| V-06 | Gestionar creación, edición y eliminación desde Django Admin. | **Herramienta documentada; falta registrar el ciclo completo**. |
+
+Las capturas y los pasos de uso muestran el alcance del desarrollo, pero no constituyen por sí solos una auditoría del código ni una batería completa de pruebas automatizadas.
+
+## 9. Limitaciones y mejoras futuras
+
+Este proyecto se presenta como **prototipo académico**, no como un sistema desplegado para operar una clínica veterinaria. Antes de un uso real sería necesario profundizar, al menos, en pruebas, control de acceso, respaldo de datos, privacidad de los responsables y despliegue seguro.
+
+Como mejoras futuras consideraría documentar pruebas automatizadas de validaciones, reforzar manejo de errores y preparar una configuración de despliegue distinta del entorno local.
+
+## 10. Autoría y contacto
+
+Desarrollé **Huellas Sanas de forma individual** durante mi formación como Analista Programador en **INACAP Osorno**.
+
+**Vicente Vega Arroyo**  
+[GitHub: @Vichosurf](https://github.com/Vichosurf)
+
+---
+
+*Esta documentación describe el proyecto y las evidencias disponibles. No declara certificaciones, pruebas de rendimiento ni funcionamiento en producción.*
